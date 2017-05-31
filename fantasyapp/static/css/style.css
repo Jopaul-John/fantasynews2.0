@@ -1,0 +1,98 @@
+body {
+    background-color: black;
+}
+
+.general {
+    background-image: url("../img/cricket.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.technical {
+    background-image: url("../img/football.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mybtn {
+    background-color: #DCDCDC !important;
+    border: 2px solid #fff !important;
+}
+.mybttn {
+    background-color: transparent !important;
+    border: 2px solid #000 !important;
+}
+.myimg-circle {
+    height: 80px;
+    width: 80px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin-top:40px;
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: grey;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 0, 0, 0.4);
+}
+
+.down {
+    margin-top: 150px;
+}
+
+.lildown {
+    margin-top: 165px;
+}
+
+.exact {
+    margin-top: 155px;
+}
+
+.cricbg {
+    background-image: url("../img/cricbg.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mybg {
+    background-image: url("../img/mybg.png");
+}
+.myfootbg {
+    background-image: url("../img/footbg.png");
+}
+
+.upper
+{
+    text-transform: uppercase;
+}
+
+.caps
+{
+    text-transform: capitalize;
+}
+

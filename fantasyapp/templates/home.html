@@ -1,0 +1,340 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Fantasy 2k17</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/css?family=Asap|Anton|Play" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/style.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <style>
+        .play
+        {
+            font-family:'Play';
+        }
+          p.mypara
+        {
+           overflow: hidden;
+           text-overflow: ellipsis;
+           display: -webkit-box;
+           line-height: 16px;     /* fallback */
+           max-height: 64px;      /* fallback */
+           -webkit-line-clamp: 4; /* number of lines to show */
+           -webkit-box-orient: vertical;
+        }
+    </style>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1629513483200878",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+</head>
+<body style="font-family:'Asap'" class="black-text white">
+    <ul id="dropdown1" class="dropdown-content">
+      <li><a href="/userpage/">My Page</a></li>
+      <li><a href="/logout/">Logout</a></li>
+    </ul>
+     <nav class="blue darken-4 white-text navbar-fixed" role="navigation">
+        <div class="nav-wrapper container">
+            <a class="brand-logo" href="/home/" target="_blank" id="logo-container"><b>Fantasy News</b></a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="/cricket/">Cricket</a>
+                </li>
+                <li>
+                    <a href="/football/">Football</a>
+                </li>
+                {%if active %}
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">person</i>{{user.first_name}}<i class="material-icons right">arrow_drop_down</i></a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="#modal1">Login</a>
+                </li>
+                <li>
+                    <a href="/register/">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="side-nav" id="nav-mobile">
+                <li>
+                    <a href="/cricket/">Cricket</a>
+                </li>
+                <li>
+                    <a href="/football/">Football</a>
+                </li>
+                {%if active %}
+                <li>
+                    <a href="/userpage/">My Page</a>
+                </li>
+                <li>
+                    <a href="/logout/">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="#modal1">Login</a>
+                </li>
+                <li>
+                    <a href="/register/">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+            <a class="button-collapse" data-activates="nav-mobile" href="#"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+    
+    <section id="home">
+        <div class="row center">
+            <h1>Fantasy News</h1>
+            <h5>A Portal to get all the news and updates regarding Fantasy League</h5>
+        </div>
+   </section>
+    
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <div class="row center">
+            <h4>Login</h4>
+            <div class="divider"></div>
+        </div>
+        {% if msg %}
+            <p align="center">{{ msg }}</p>
+        {% endif %} 
+        <div class="row"> {% if not active %}
+            <form method="post"> {% csrf_token %}
+                <div class="col m12 s12">
+                <div class="row">
+                    <div class="input-field col s12 m8 offset-m2">
+                        <label for="id_username">Username</label>
+                        <input id="id_username" maxlength="150" name="username" type="text" required class="validate" /> </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m8 offset-m2">
+                        <label for="id_password">Password</label>
+                        <input id="id_password" name="password" type="password" required class="validate" /> </div>
+                </div>
+                <div class="row center"><a href="/password_reset/">Forgot Password?</a></div>
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <input type="submit" name="submit" value="Let Me In !" class="btn amber"> </div>
+                </div></div>
+            </form>  {% endif %}
+        </div>
+        <div class="row center"> <a class="btn blue darken-4" href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a> </div>
+    </div>
+</div>
+
+   <section id="high">
+        <div class="row">
+            <div class="col m10 offset-m1 s12">
+            {% for mat in match %}
+            <div class="row col m12">
+                <div class="col m3 s12 center grey lighten-4" style="padding-top:5px">
+                    {% if mat.tournament.is_cricket %}
+                        <a href="/cricket/{{ mat.id }}/"><img src="{{ mat.image.url }}" height="220" width="220" ></a>
+                        {% else %}
+                        <a href="/football/{{ mat.id }}/"><img src="{{ mat.image.url }}" height="220" width="220"></a>
+                    {% endif %}
+                </div>
+
+                <div class="col m9 s12 grey lighten-4" style="padding-top:6.5px">
+                       <h5 class="center">{{ mat.tournament.tournament_name|safe }}</h5>
+                        {% if mat.cricket_match_name %}
+                            <a href="/cricket/{{ mat.id }}/"><h4 class="center"><b>{{ mat.cricket_match_name|safe }}</b></h4></a>
+                            <p class="mypara">{{ mat.para1|safe }}</p>
+                            <a href="/cricket/{{ mat.id }}/"><p class="center"><b>Read More</b></p></a>
+                        {% else %}
+                            <a href="/football/{{ mat.id }}/"><h4 class="center"><b>{{ mat.football_match_name|safe }}</b></h4></a>
+                            <p class="mypara">{{ mat.para1|safe }}</p>
+                            <a href="/football/{{ mat.id }}/"><p class="center"><b>Read More</b></p></a>
+                        {% endif %}
+                </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <div align="center">
+        <script type="text/javascript" language="javascript">
+      var aax_size='728x90';
+      var aax_pubname = 'alexjosephfan-21';
+      var aax_src='302';
+    </script>
+    <script type="text/javascript" language="javascript" src="http://c.amazon-adsystem.com/aax2/assoc.js"></script>
+    </div>
+    
+   <section id="content" class="container">
+    <div class="row white-text" style="font-family:Anton">
+         <div class="col s12 m6 white-text general waves-effect center">
+            <h2 class="down">CRICKET</h2>
+            <br> <a href="/cricket/" class="waves-effect waves-light mybtn btn black-text center lildown">Explore</a>
+            <br> </div>
+        <div class="col s12 m6 white-text technical waves-effect center">
+            <h3 class="down">FOOTBALL</h3>
+            <br> <a href="/football/" class="waves-effect waves-light mybtn btn black-text center lildown">Explore</a>
+            <br> </div>
+    </div>
+
+       <div class="container center" id="contact">
+            <h3>Contact Us</h3>
+            <br>
+            <div class="row">
+            <form class="col s12 m10 offset-m1"  method="POST">
+                {% csrf_token %}
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <input id="name" type="text" name="name" class="validate" required>
+                  <label for="name">Name</label>
+                </div>
+                <div class="input-field col s12 m6">
+                  <input id="place" type="text" name="place" class="validate" required>
+                  <label for="place">Place</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <input id="mobile" type="tel" name="mobile" class="validate" required>
+                  <label for="mobile">Mobile</label>
+                </div>
+
+                  <div class="input-field col s12 m6">
+                  <input id="email" name="email" type="email" class="validate" required>
+                  <label for="email">Email</label>
+                  </div>
+
+                <div class="input-field col s12 m12" >
+                  <input id="message" name="message" type="text" class="validate" align="center" required>
+                  <label for="message">Message</label>
+                </div>
+              </div>
+            <button class="btn" id="submit" type="submit">Submit</button>
+            <div align="center" id="formsubmitid"></div>
+                <br>{{message}}
+            </form>
+          </div>
+            <p class="ryt">For any other queries, contact us at <a href="mailto:bramha.asiet@gmail.com">fantasy.in@gmail.com</a></p>
+        </div>
+
+    <div align = "center">
+        <script type="text/javascript" language="javascript">
+      var aax_size='728x90';
+      var aax_pubname = 'alexjosephfan-21';
+      var aax_src='302';
+    </script>
+    <script type="text/javascript" language="javascript" src="http://c.amazon-adsystem.com/aax2/assoc.js"></script>
+
+    </div>
+    </section>
+    <footer class="grey darken-3" style="z-index:999;padding-top:10px;padding-bottom:10px;">
+        <div class="footer-copyright" style="padding-top:5px;">
+            <div class="container white-text">Fantasy News</a> <a class="white-text text-lighten-3 right">Coax Tech. Team</a> </div>
+        </div>
+        </div>
+    </footer>
+    <script src="{% static "js/jquery-2.1.4.js" %}">
+    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static "js/materialize.js" %}">
+    </script>
+    <script src="{% static "js/init.js" %}">
+    </script>
+
+    <script type='text/javascript' src="{% static "js/mobile.js" %}"></script>
+   <script>
+    $(document).ready(function () {
+        $('.slider').slider();
+        $('.modal').modal();
+    });
+</script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o)
+            , m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-97072343-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</body>
+
+<script>
+    $( "#submit" ).click(function(e) {
+      e.preventDefault();
+      var name= $('#name').val();
+      var place = $('#place').val();
+      var mobile = $('#mobile').val();
+      var email = $('#email').val();
+      var msg = $('#message').val();
+      console.log(status+place+mobile+email+msg);
+      if(name =="")
+        {
+            alert('please enter name');
+            return false;
+         }
+      if(place =="")
+        {
+            alert('please enter place');
+            return false;
+         }
+      if(mobile =="")
+        {
+            alert('please enter mobile');
+            return false;
+         }
+      if(email =="")
+        {
+            alert('please enter email');
+            return false;
+         }
+      if(msg =="")
+        {
+            alert('please enter msg');
+            return false;
+         }
+
+      $('#name').click(function(e) {
+           document.getElementById("formsubmitid").innerHTML = "";
+
+         });
+
+$.ajax({
+    url: '/contact/',
+    type : 'post',
+    dataType: 'json',
+    data: {name: name, place: place,mobile:mobile,email:email,msg:msg,csrfmiddlewaretoken: '{{ csrf_token }}'},
+    success: function(data) {
+            document.getElementById("formsubmitid").innerHTML = data.message;
+           },
+    failure: function(data) {
+        alert('Got an error dude');
+    }
+});
+document.getElementById("name").value = "";
+document.getElementById("place").value = "";
+document.getElementById("mobile").value = "";
+document.getElementById("email").value = "";
+document.getElementById("message").value = "";
+
+
+});
+</script>
+</html>

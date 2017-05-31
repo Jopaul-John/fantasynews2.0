@@ -1,0 +1,84 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Sign In</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/style.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+</head>
+<body style="font-family: Coda" class="white">
+<div class="navbar-fixed">
+    <nav class="black mynav" role="navigation">
+        <div class="nav-wrapper container">
+            <a class="brand-logo" href="/home/" target="_blank" id="logo-container"><b>Fantasy</b></a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="/home/">Home</a>
+                </li>
+            </ul>
+            <ul class="side-nav" id="nav-mobile">
+                <li>
+                    <a href="/home/">Home</a>
+                </li>
+            </ul><a class="button-collapse" data-activates="nav-mobile" href="#"><i class="material-icons">menu</i></a>
+        </div>
+    </nav> 
+</div>
+<div class="container black-text">
+    <div class="row">
+        <h3 class="center">Register</h3>
+        <div class="divider"></div>
+    </div>
+    <div class="row center">
+        <div class="col m8 offset-m2 s12">
+        <form method="post"> {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <label for="id_username">Username</label>
+                    <input id="id_username" maxlength="150" name="username" type="text" required class="validate" /> </div>
+                <div class="input-field col s12 m6">
+                    <label for="id_password">Password</label>
+                    <input id="id_password" name="password" type="password" required class="validate" /> </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12">
+                    <label for="id_email">Email</label>
+                    <input id="id_email" maxlength="254" name="email" type="email" required class="validate" /> </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <label for="id_state">State</label>
+                    <input id="id_state" maxlength="20" name="state" type="text" required class="validate" /> </div>
+                <div class="input-field col s12 m6">
+                    <label for="id_place">City</label>
+                    <input id="id_place" maxlength="40" name="place" type="text" required class="validate" /> </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 center">
+                    <input type="submit" class="btn amber" value="Register !"> </div>
+            </div> 
+            <div class="row center">
+                 {% if msg %}
+                    <p>{{ msg }}</p>
+                {% endif %} 
+            </div> 
+            
+           
+        </div>
+    </div>
+</div>
+<br>  
+ <footer class="grey darken-3" style="z-index:999;padding-top:10px;padding-bottom:10px;">
+        <div class="footer-copyright" style="padding-top:5px;">
+            <div class="container white-text">Fantasy News</a> <a class="white-text text-lighten-3 right">Coax Tech. Team</a> </div>
+        </div>
+        </div>
+    </footer>
+</body>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type='text/javascript' src="{% static "js/materialize.min.js" %}"></script>
+</html>

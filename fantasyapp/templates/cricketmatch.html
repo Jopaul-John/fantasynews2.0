@@ -1,0 +1,287 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Fantasy 2k17</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/css?family=Asap|Monoton|Francois+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/style.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <style>
+        @media only screen and (max-device-width: 480px) {
+            h3
+            {
+                text-align:left;
+            }
+            #hide1,#hide2
+            {
+                visibility: hidden;
+                display: none;
+            }
+        }
+    </style>
+
+   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1629513483200878",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body style="font-family:'Asap';font-size:1.5em" class="white black-text">
+
+
+     <ul id="dropdown1" class="dropdown-content">
+      <li><a href="/userpage/">My Page</a></li>
+      <li><a href="/logout/">Logout</a></li>
+    </ul>
+        <nav class="blue darken-4 navbar-fixed" role="navigation">
+        <div class="nav-wrapper container">
+            <a class="brand-logo" href="/home/" target="_blank" id="logo-container"><b>Fantasy News</b></a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="/cricket/">Home</a>
+                </li>
+                 {% if active %}
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">person</i>{{user.first_name}}<i class="material-icons right">arrow_drop_down</i></a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="#modal1">Login</a>
+                </li>
+                <li>
+                    <a href="/register/">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="side-nav" id="nav-mobile">
+                  <li>
+                    <a href="/cricket/">Home</a>
+                </li>
+                 {%if active %}
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">person</i>{{user.first_name}}<i class="material-icons right">arrow_drop_down</i></a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="#modal1">Login</a>
+                </li>
+                <li>
+                    <a href="/register/">Register</a>
+                </li>
+                {% endif %}
+            </ul><a class="button-collapse" data-activates="nav-mobile" href="#"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+   <div class="row">
+    <div class="col m12 s12 center">
+        <div class="row">
+            <div class="col m8 s12 offset-m2">
+               <h3 class="upper" style="font-family:'Francois One'">{{cric.preview|safe}}</h3>
+            </div>
+        </div>
+
+        <p class="upper"><span><b>{{cric.cricket_match_name|safe}}</b></span> | {{cric.on_date|safe}}</p>
+        <div class="row">
+            <div class="col m8 offset-m2 s12">
+                <img class="responsive-img" src="{{cric.image.url}}">
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container row center">
+        <div class="col m12 s12">
+            <p align="justify">{{cric.para1|safe}}</p>
+            <br>
+            <p align="justify">{{cric.para2|safe}}</p>
+
+             <div class="row caps">
+                  <div class="col m6 s12">
+                    <blockquote><b> {{cric.team1_des|safe}} </b></blockquote>
+                    <h5>{{cric.team1|safe}}</h5>
+                  </div>
+                  <div class="col m6 s12">
+                    <blockquote><b> {{cric.team2_des|safe}} </b></blockquote>
+                    <h5>{{cric.team2|safe}}</h5>
+                  </div>
+            </div>
+
+            <div class="row caps">
+                  {% if cric.team5 %}
+                  <div class="col m6 s12">
+                    <blockquote><b>Fantasy Risk Team</b></blockquote>
+                    <img src="{{ cric.team5.url }}" class="responsive-img">
+                  </div>
+                  {% endif %}
+                  {% if cric.team4 %}
+                    <div class="col m6 s12">
+                        <blockquote><b>Fantasy Safe Team</b></blockquote>
+                        <img src="{{ cric.team4.url }}" class="responsive-img">
+                    </div>
+                {% endif %}
+           </div>
+            <div class="row caps">
+                 <div class="col m8 offset-m2 s12">
+                     <blockquote class="caps"><b> {{cric.team3_des|safe}}</b></blockquote>
+                    <h5>{{cric.team3|safe}}</h5>
+                </div>
+            </div>
+             
+            <ul class="collection with-header black-text">
+                <li class="collection-header">
+                    <h4>Conclusion</h4></li>
+                <li class="collection-item center">{{cric.conclusion|safe}}</li>
+                <li class="collection-header">
+                    <h4>Key Players</h4></li>
+                <li class="collection-item center">{{cric.final_verdict|safe}}</li>
+            </ul>
+        </div>
+    </div>
+      <div class="row center"><strong>Share on</strong><br>
+           <a id="whatsid" href="whatsapp://send?text= www.fantasynews.in/football/{{ foot.id }}" data-action="share/whatsapp/share"><img src="{% static "img/whatsapp.png" %}" width="45"></a>
+           <a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=wwwfantasynews.in/football/{{ foot.id }}" target="_blank"><img src="{% static "img/fb.png" %}" width="40">
+           </a>
+       </div>
+    <div class="row">
+      <h4 class="col m10 offset-m2">Comments</h4><br>
+    <div class="row">
+        <div class="col s12 m4 offset-m2" id="discussionid">
+            {% for var in discuss %}
+              <blockquote>
+                <i class="material-icons left">person</i><span>{{ var.user.user }}</span>
+              </blockquote>
+              <p style="padding-left:25px">{{ var.comment }}</p>
+            {% endfor %}
+            <div id="ajaxdiv"></div>
+        </div>
+        <form method="post"> {% csrf_token %}
+             <div class="row">
+                <div class="input-field col s12 m8 offset-m2">
+                  <input type="text" id="comment" class="validate">
+                  <label for="comment">Comment</label>
+                </div>
+              </div>
+              <div class="row center">
+                <div class="input-field col s12">
+                  <input type="submit" class="btn green" value="Send" id="submitcomment">
+                </div>
+              </div>
+        </form>
+    </div>
+    </div>
+    <p class="center">Updated On : {{cric.updated_on|safe}}</p>
+       
+
+
+        <div id="modal1" class="modal">
+    <div class="modal-content">
+        <div class="row center">
+            <h4>Login</h4>
+            <div class="divider"></div>
+        </div>
+        {% if msg %}
+            <p align="center">{{ msg }}</p>
+        {% endif %} 
+        <div  class="row"> {% if not active %}
+            <form method="post"> {% csrf_token %}
+                <div class="col m12 s12">
+                <div class="row">
+                    <div class="input-field col s12 m8 offset-m2">
+                        <label for="id_username">Username</label>
+                        <input id="id_username" maxlength="150" name="username" type="text" required class="validate" /> </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m8 offset-m2">
+                        <label for="id_password">Password</label>
+                        <input id="id_password" name="password" type="password" required class="validate" /> </div>
+                </div>
+                <div class="row center"><a href="/password/">Forgot Password?</a></div>
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <input type="hidden" name="redirecturl" value="/football/{{ cric.id }}/#comment">
+                        <input type="submit" name="submit" value="Let Me In !" class="btn amber"> </div>
+                </div></div>
+            </form>  {% endif %}
+        </div>
+        <div class="row center"> <a class="btn blue darken-4" href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a> </div>
+    </div>
+</div>
+
+
+
+    <script src="{% static "js/jquery-2.1.4.js" %}">
+    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static "js/materialize.js" %}">
+    </script>
+    <script src="{% static "js/init.js" %}">
+    </script>
+    <script type='text/javascript' src="{% static "js/mobile.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+
+        });
+    </script>
+
+<script>
+
+$( "#submitcomment" ).click(function(e) {
+    e.preventDefault();
+    var status =$('#comment').val();
+    if(status =="")
+    {
+        alert("Please Write Something");
+        return;
+     }
+    $('#comment').val("");
+    var url = "/cricket/"+ '{{ cric.id }}'+"/";
+    $.ajax({
+    url: url,
+    type : 'post',
+    dataType: 'json',
+    data: {comment: status,csrfmiddlewaretoken: '{{ csrf_token }}'},
+    success: function(data) {
+            if(data.message=="False")
+            {
+                alert("You have to Login to Comment");
+                $('#comments').modal('close');
+                $('#modal1').modal('open');
+            }
+            else
+            {
+                var comment = data.user+":-"+data.comment+"<br>";
+                console.log(comment);
+                $("#ajaxdiv").append(comment);
+            }
+         },
+    failure: function(data) {
+        alert('error');
+    }
+    });//ajax
+
+
+  });
+
+function autoRefresh_div() {
+    $("#ajaxid").load( function() {
+        setTimeout(autoRefresh_div, 5000);
+    });
+
+    $("#mydiv").load(location.href + " #mydiv");
+}
+
+autoRefresh_div();
+</script>
+
+
+</body>
+
+</html>

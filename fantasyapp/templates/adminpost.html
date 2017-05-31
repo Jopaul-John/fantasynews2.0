@@ -1,0 +1,157 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Post</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+
+    <link href="{% static "css/style.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+
+</head>
+
+
+
+<body style="font-family: Coda" style="height:100vh" class="white black-text">
+    <div class="navbar-fixed">
+        <nav class="light-blue lighten-1 mynav" role="navigation">
+            <div class="nav-wrapper container"> <a class="brand-logo" href="/home/" target="_blank" id="logo-container"><b>Fantasy</b></a>
+                <ul class="right hide-on-med-and-down">
+                    <li> <a href="/home/">Home</a> </li>
+                     <li> <a href="/adminmail/">Messages</a> </li>
+
+                </ul>
+                <ul class="side-nav" id="nav-mobile">
+                    <li> <a href="/home/">Home</a> </li>
+                </ul><a class="button-collapse" data-activates="nav-mobile" href="#"><i class="material-icons">menu</i></a> </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="center col m6 offset-m3 s12">
+                <h3>Post News</h3> <a class="btn black white-text" href="#" id="cricketpost">Cricket</a> <a class="btn white black-text" href="#" id="footballpost">Football</a> </div>
+        </div>
+        <div class="row" id="aboutcricket">
+            <h3 class="center">Cricket</h3>
+            <br>
+            <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+                 <tr><th><label for="id_tournament">Tournament:</label></th><td>
+                     <select id="id_tournament" name="tournament" required>
+
+ {% for var in cric %}
+     <option value="{{ var.id }}">{{ var.tournament_name }}</option>
+                     {% endfor %}
+</select>
+                 </td></tr>
+<tr><th><label for="id_cricket_match_name">Cricket match name:</label></th><td><input id="id_cricket_match_name" maxlength="150" name="cricket_match_name" type="text" required /></td>
+</tr>
+<tr><th><label for="id_on_date">On date:</label></th><td><input id="id_on_date" name="on_date" type="text" required /></td></tr>
+<tr><th><label for="id_updated_on">Updated on:</label></th><td><input id="id_updated_on" name="updated_on" type="text" value="2017-05-30 15:35:38" required /></td></tr>
+<tr><th><label for="id_preview">Preview:</label></th><td><textarea cols="40" id="id_preview" name="preview" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_para1">Para1:</label></th><td><textarea cols="40" id="id_para1" name="para1" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_para2">Para2:</label></th><td><textarea cols="40" id="id_para2" name="para2" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_para3">Para3:</label></th><td><input id="id_para3" maxlength="800" name="para3" type="text" required /></td></tr>
+<tr><th><label for="id_team1_des">Team1 des:</label></th><td><input id="id_team1_des" maxlength="100" name="team1_des" type="text" required /></td></tr>
+<tr><th><label for="id_team1">Team1:</label></th><td><textarea class="materialize-textarea txt" cols="40" id="id_team1" name="team1" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_team2_des">Team2 des:</label></th><td><input id="id_team2_des" maxlength="100" name="team2_des" type="text" required /></td></tr>
+<tr><th><label for="id_team2">Team2:</label></th><td><textarea class="materialize-textarea txt" cols="40" id="id_team2" name="team2" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_team3_des">Team3 des:</label></th><td><input id="id_team3_des" maxlength="100" name="team3_des" type="text" required /></td></tr>
+<tr><th><label for="id_team3">Team3:</label></th><td><textarea class="materialize-textarea txt" cols="40" id="id_team3" name="team3" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_team4">Team4:</label></th><td><input id="id_team4" name="team4" type="file" required /></td></tr>
+<tr><th><label for="id_team5">Team5:</label></th><td><input id="id_team5" name="team5" type="file" required /></td></tr><br><br>
+<tr><th><label for="id_conclusion">Conclusion:</label></th><td><textarea class="materialize-textarea" cols="40" id="id_conclusion" name="conclusion" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_final_verdict">Final verdict:</label></th><td><textarea class="materialize-textarea" cols="40" id="id_final_verdict" name="final_verdict" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_image">Image:</label></th><td><input id="id_image" name="image" type="file" required /></td></tr>
+
+                <div class="row center">
+                    <div class="input-field col s12 m12">
+                        <input class="btn green" type="submit" value="Post"> </div>
+                </div>
+            </form>
+            <br/> </div>
+        <div class="row center"> {% if message %}
+            <p>{{ message }}</p> {% endif %} </div>
+        <div class="row" id="aboutfootball">
+            <h3 class="center">Football</h3>
+            <br>
+            <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+              <tr><th><label for="id_tournament">Tournament:</label></th><td>
+                  <select id="id_tournament" name="tournament" required>
+
+                 {% for var in foot %}
+         <option value="{{ var.id }}">{{ var.tournament_name }}</option>
+                     {% endfor %}
+</select></td></tr>
+<tr><th><label for="id_football_match_name">Football match name:</label></th><td><input id="id_football_match_name" maxlength="150" name="football_match_name" type="text" required /></td></tr>
+<tr><th><label for="id_on_date">On date:</label></th><td><input id="id_on_date" name="on_date" type="text" value="2017-05-30 15:35:38" required /></td></tr>
+<tr><th><label for="id_updated_on">Updated on:</label></th><td><input id="id_updated_on" name="updated_on" type="text" value="2017-05-30 15:35:38" required /></td></tr>
+<tr><th><label for="id_preview">Preview:</label></th><td><textarea cols="40" id="id_preview" name="preview" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_para1">Para1:</label></th><td><textarea cols="40" id="id_para1" name="para1" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_para2">Para2:</label></th><td><textarea cols="40" id="id_para2" name="para2" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_para3">Para3:</label></th><td><input id="id_para3" maxlength="800" name="para3" type="text" required /></td></tr>
+<tr><th><label for="id_team1_des">Team1 des:</label></th><td><input id="id_team1_des" maxlength="100" name="team1_des" type="text" required /></td></tr>
+<tr><th><label for="id_team1">Team1:</label></th><td><textarea class="materialize-textarea txt" cols="40" id="id_team1" name="team1" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_team2_des">Team2 des:</label></th><td><input id="id_team2_des" maxlength="100" name="team2_des" type="text" required /></td></tr>
+<tr><th><label for="id_team2">Team2:</label></th><td><textarea class="materialize-textarea txt" cols="40" id="id_team2" name="team2" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_team3_des">Team3 des:</label></th><td><input id="id_team3_des" maxlength="100" name="team3_des" type="text" required /></td></tr>
+<tr><th><label for="id_team3">Team3:</label></th><td><textarea class="materialize-textarea txt" cols="40" id="id_team3" name="team3" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_team4">Team4:</label></th><td><input id="id_team4" name="team4" type="file" required/></td></tr>
+<tr><th><label for="id_team5">Team5:</label></th><td><input id="id_team5" name="team5" type="file" required/></td></tr><br><br>
+<tr><th><label for="id_conclusion">Conclusion:</label></th><td><textarea class="materialize-textarea" cols="40" id="id_conclusion" name="conclusion" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_final_verdict">Final verdict:</label></th><td><textarea class="materialize-textarea" cols="40" id="id_final_verdict" name="final_verdict" rows="10" required>
+</textarea></td></tr>
+<tr><th><label for="id_image">Image:</label></th><td><input id="id_image" name="image" type="file" required /></td></tr>
+
+                <div class="row center">
+                    <div class="input-field col s12 m12">
+                        <input class="btn green" type="submit" value="Post"> </div>
+                </div>
+            </form>
+            <br/> </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    window.onload = function () {
+        $("#aboutcricket").hide();
+        $("#aboutfootball").hide();
+    };
+    $("#cricketpost").click(function (e) {
+        e.preventDefault();
+        $("#aboutfootball").hide();
+        $("#aboutcricket").fadeIn();
+    });
+    $("#footballpost").click(function (e) {
+        e.preventDefault();
+        $("#aboutcricket").hide();
+        $("#aboutfootball").fadeIn();
+    });
+</script>
+    <script>
+      $(document).ready(function() {
+    $('select').material_select();
+    $('.txt').val('<ol class="collection">       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>       <li class="collection-item"></li>     </ol>');
+    $('materialize-textarea').trigger('autoresize');
+  });
+    </script>
+    <script type='text/javascript' src="{% static "js/init.js" %}"></script>
+    <script type='text/javascript' src="{% static "js/materialize.min.js" %}"></script>
+</html>

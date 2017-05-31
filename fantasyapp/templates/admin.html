@@ -1,0 +1,72 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Sign In</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/animate.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/style.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/dataurl.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+</head>
+<body style="font-family: Coda" class="white black-text">
+<div class="navbar-fixed">
+    <nav class="black mynav" role="navigation">
+        <div class="nav-wrapper container">
+            <a class="brand-logo" href="/home/" target="_blank" id="logo-container"><b>Fantasy</b></a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="/home/">Home</a>
+                </li>
+            </ul>
+            <ul class="side-nav" id="nav-mobile">
+                <li>
+                    <a href="/home/">Home</a>
+                </li>
+            </ul><a class="button-collapse" data-activates="nav-mobile" href="#"><i class="material-icons">menu</i></a>
+        </div>
+    </nav> 
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col m6 offset-m3 s12">
+        <h3 class="center">Sign In</h3><br>
+        <form action="" method="POST"> 
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12 m12">
+                    <input id="id_username" maxlength="150" name="username" type="text" required class="validate" />
+                    <label for="username">User Name</label>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="input-field col s12 m12">
+                    <input id="id_password" name="password" type="password" required class="validate" />
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s12 m12">
+                   <button class="btn green" type="submit">Login</button>
+                </div>
+            </div>
+            
+        </form>
+        <br/> 
+    </div>
+  </div>
+</div>
+    <div class="row col m12 s12"> {% if message %}
+        <p>{{ message }}</p> {% endif %} 
+    </div>
+    
+</body>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type='text/javascript' src="{% static "js/init.js" %}"></script>
+    <script type='text/javascript' src="{% static "js/materialize.min.js" %}"></script>
+</html>
+    

@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/animate.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/style.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/dataurl.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <style>
+           header, main, footer,container {
+      padding-left: 300px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    }
+    </style>
+</head>
+<body style="font-family:Coda">
+<div id="particles-js"></div>
+<div class="navbar-fixed container">
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a class="brand-logo" href="/index/" target="_blank" id="logo-container"><b>Scrappy</b></a>
+            <ul class="right hide-on-med-and-down">
+               <li> <a style="text-transform:capitalize">Welcome {{user}}</a> </li>
+               <li> <a href="/dealerlogin/">Home</a> </li>
+               <li> <a href = "/logout/">Logout</a></li>
+            </ul>
+            <ul class="side-nav" id="nav-mobile">
+               <li> <a>Welcome {{user}}</a> </li>
+               <li> <a href="/dealerlogin/">Home</a> </li>
+               <li> <a href = "{{ id }}">Logout</a></li>
+            </ul><a class="button-collapse" data-activates="nav-mobile" href="#"><i class="material-icons">menu</i></a>
+        </div>
+    </nav> 
+</div>
+<ul id="slide-out" class="side-nav fixed grey darken-4">
+    <li>
+    <div class="userView white-text">
+      <div class="background">
+        <img src="https://image.freepik.com/free-vector/abstract-blue-background_1048-1511.jpg">
+      </div>
+      <a href="#!user"><img class="circle" src="{% static "img/scrap.png" %}"></a>
+      <a href="#!name"><span class="white-text name">Admin</span></a>
+      <a href="#!email"><span class="white-text email">scrappy.in@gmail.com</span></a>
+    </div>
+    </li>
+    {% for message in messages %}
+    <li style="text-transform:capitalize"><a href="#!" class="white-text"><i class="material-icons white-text">message</i>{{message.Name}}</a></li>
+    {% endfor %}
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  <div class="container">
+        <div class="row">
+            <div class="col m9 offset-m3 s12">
+                {% for message in messages %}
+                <div id="message{{message.id}}">
+                       <ul class="collection with-header black-text">
+                        <li class="collection-item avatar">
+                          <div style="padding-top:10px"></div>
+                          <img src="https://image.freepik.com/free-vector/abstract-blue-background_1048-1511.jpg" alt="" class="circle">
+                          <span class="title" style="font-size:1.2em;text-transform:capitalize;">{{message.Name}}</span>
+                          <p style="font-size:0.6em">{{message.mobile}} |
+                             {{message.place}} |
+                             {{message.email}}
+                          </p>
+                        </li>
+                        <li class="collection-header center">{{message.message}}</li>
+                        <li class="collection-header center"> 
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="text" id="{{message.id}}_reply" required><br>
+                                <input type="submit" class="btn mybttn white black-text" id="{{message.id}}" onclick="return sendmail(this)" value="Reply" >
+                            </form>
+                        </li>
+                       </ul>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+  </div>
+
+
+
+<div>
+    
+</div>
+    
+</body>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    });
+</script>
+    
+    
+<script>
+    function sendmail(button) {
+        console.log(button.id);
+        var id = button.id;
+        var messageid = id + "_reply";
+        var message = $("#" + messageid).val()
+            // alert(message);
+        $.ajax({
+            url: '/adminmail/'
+            , type: 'post'
+            , dataType: 'json'
+            , data: {
+                id: id
+                , message: message
+                , csrfmiddlewaretoken: '{{ csrf_token }}'
+            }
+            , success: function (data) {
+                if (data.status == "yes") {
+                    $("#" + id).fadeOut("slow");
+                    $("#message"+ id).fadeOut("slow");
+                    console.log("success");
+                    
+                }
+                else console.log("fail");
+            }
+            , failure: function (data) {
+                alert('Got an error dude');
+            }
+        });
+        return false;
+    }
+</script>
+<script type='text/javascript' src="{% static " js/init.js " %}"></script>
+<script type='text/javascript' src="{% static " js/materialize.min.js " %}"></script>
+<script type='text/javascript' src="{% static " js/typed.js " %}"></script>
+<script type='text/javascript' src="{% static " js/wow.js " %}"></script>
+<script type='text/javascript' src="{% static " js/particles.js " %}"></script>
+<script type='text/javascript' src="{% static " js/app.js " %}"></script>
+</html>
